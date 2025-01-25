@@ -29,9 +29,9 @@ os.environ["LOCAL_RANK"] = "0"           # Current process rank within the node
 
 def run_main(
     ckpt_dir: str = "/home/nassim/.llama/checkpoints/Llama3.1-8B-Instruct",
-    temperature: float = 0.2,
+    temperature: float = 0,
     top_p: float = 0.8,
-    max_seq_len: int = 512,
+    max_seq_len: int = 8000,
     max_batch_size: int = 4,
     max_gen_len: Optional[int] = None,
     model_parallel_size: Optional[int] = None,
@@ -56,28 +56,7 @@ def run_main(
 
     system_prompt = RawMessage(
         role="system",
-        content=(
-            "You are a helpful assistant. "
-            "You will classify the given text as either 'quote_request' or 'other'. "
-            "A 'quote_request' is a document that a seller provides to a buyer to offer goods or services at a stated price, under specified conditions. 'quote_request' are used to let a potential buyer know how much goods or services will cost before they commit to the purchase"
-            "A 'quote_request' occurs when the user expresses interest in buying a product or service."
-            "its important to note that 'quote_request' has a strict definition of being able to provide a specific service or specific product at price. it is not general questions about a product or service"
-            "for a 'quote_request' we must be able to determine what is the exact item or service they are looking to purchase."
-            "All other queries are classified as 'other'. "
-            "Only respond with one of these labels: 'quote_request' or 'other'. "
-            "Examples: "
-            "1. User: 'What is the price for bulk orders of drill bits?' → quote_request "
-            "2. User: 'Can you explain your warranty policy?' → other "
-            "3. User: 'What are the terms and conditions for bulk purchases?' → other"
-            "4. User: 'Can I schedule a call with your sales team?' → other"
-            "5. User: 'How do I download an invoice for my purchase?' → other"
-            "6. User: 'Do you offer any discounts for bulk purchases?' → other"
-            "7. User: 'What is the minimum order quantity for your products?' → other"
-            "8. User: 'Can your product be leased instead of purchased?' → other"
-            "9. User: 'How do you calculate shipping costs for bulk orders?' → other"
-            "10. User: 'Do you offer volume pricing for wholesale buyers?' → other"
-            "Classify the following query."
-        ),
+        content=(Utils.Generic.ingestion_functions.model_context_ingestion(file_path='./Model_context/request_classification_context.txt', context_type='request_classification')),
     )
 
     user_inputs = Utils.Generic.ingestion_functions.user_text_prompt_ingestion('./samples/quote_request_samples.txt')

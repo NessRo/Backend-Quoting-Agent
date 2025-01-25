@@ -1,388 +1,170 @@
 user_prompt,response
-Can you give me a quote for 50 steel pipes?,quote_request
-How much would it cost to order 200 bricks?,quote_request
-What’s the price for 10 gallons of paint?,quote_request
-Can I get a quote for bulk orders of safety helmets?,quote_request
-How much is a shipment of 500 bolts?,quote_request
-What’s the price for 20 office chairs?,quote_request
-Can you provide a quote for 100 LED light bulbs?,quote_request
-I need pricing on 300 feet of electrical wire.,quote_request
-What’s the cost of 50 wooden pallets?,quote_request
-Can I get a quote for a set of kitchen appliances?,quote_request
-What would 30 laptops cost?,quote_request
-How much for 500 sheets of drywall?,quote_request
-Can you quote me on 20 air conditioners?,quote_request
-"I’m interested in a quote for 1,000 screws.",quote_request
-How much is a pallet of cement?,quote_request
-What’s the price for 50 toolboxes?,quote_request
-Can I get a price for 20 welding machines?,quote_request
-What’s the cost of 100 ergonomic chairs?,quote_request
-Can you provide pricing for 500 fence panels?,quote_request
-How much would it be for 300 pounds of nails?,quote_request
-What’s the price for 25 refrigerators?,quote_request
-Can I get a quote for 40 gas stoves?,quote_request
-What’s the cost of a bulk order of 500 tiles?,quote_request
-How much for 100 fire extinguishers?,quote_request
-What’s the price for 30 washing machines?,quote_request
-Can you provide a quote for 60 printers?,quote_request
-"What would it cost to buy 1,000 pencils?",quote_request
-Can I get pricing for 200 backpacks?,quote_request
-What’s the price for a 500-foot garden hose?,quote_request
-How much for 20 LED monitors?,quote_request
-Can you quote me on 10 electric drills?,quote_request
-What’s the cost of 100 wooden chairs?,quote_request
-Can I get a price for 50 dining tables?,quote_request
-"How much would it be for 1,000 plastic cups?",quote_request
-What’s the price for 40 handheld vacuum cleaners?,quote_request
-Can you provide pricing for 300 rolls of tape?,quote_request
-What’s the cost of 200 gallons of motor oil?,quote_request
-Can I get a quote for 20 server racks?,quote_request
-"How much is a 1,000-pound shipment of flour?",quote_request
-What’s the price for 50 industrial fans?,quote_request
-Can you quote me on 10 conference tables?,quote_request
-What’s the cost of 200 calculators?,quote_request
-Can I get a price for 50 soccer balls?,quote_request
-How much for 20 shipping containers?,quote_request
-What’s the price for 100 basketballs?,quote_request
-Can you provide a quote for 200 steel beams?,quote_request
-What would it cost to buy 50 car batteries?,quote_request
-"Can I get pricing for 1,000 ballpoint pens?",quote_request
-What’s the price for a bulk order of 300 notebooks?,quote_request
-How much for 50 coffee machines?,quote_request
-Can you quote me on 20 forklifts?,quote_request
-What’s the cost of 100 industrial gloves?,quote_request
-Can I get a price for 50 hard hats?,quote_request
-What’s the price for 200 packs of paper towels?,quote_request
-"How much would it be for 1,000 plastic spoons?",quote_request
-What’s the cost of 50 electric saws?,quote_request
-Can you provide a quote for 100 smoke detectors?,quote_request
-How much for 20 water dispensers?,quote_request
-What’s the price for 10 high-pressure washers?,quote_request
-Can I get pricing for 200 electric fans?,quote_request
-What’s the price for a 500-foot roll of fabric?,quote_request
-How much for 50 office desks?,quote_request
-Can you quote me on 20 standing desks?,quote_request
-What’s the cost of 200 rubber gloves?,quote_request
-How much would it cost to order 50 extension cords?,quote_request
-Can you provide pricing for 10 pressure cookers?,quote_request
-What’s the price for 300 safety vests?,quote_request
-How much for 100 tool belts?,quote_request
-Can I get a quote for 30 barcode scanners?,quote_request
-What’s the cost of 500 AA batteries?,quote_request
-Can you quote me on 20 3D printers?,quote_request
-How much for 100 steel cables?,quote_request
-"What’s the price for 1,000 wooden spoons?",quote_request
-Can I get pricing for 10 commercial ovens?,quote_request
-What’s the cost of 200 printer cartridges?,quote_request
-How much would it be for 50 whiteboards?,quote_request
-Can you provide a quote for 300 ceiling tiles?,quote_request
-What’s the price for 20 dehumidifiers?,quote_request
-How much for 100 bags of cement?,quote_request
-Can I get a quote for 500 paper clips?,quote_request
-What’s the cost of 200 PVC pipes?,quote_request
-Can you quote me on 50 air compressors?,quote_request
-How much for 10 welding torches?,quote_request
-"What’s the price for 1,000 coffee cups?",quote_request
-Can I get pricing for 20 laser cutters?,quote_request
-What’s the cost of 200 screwdrivers?,quote_request
-How much for 50 light fixtures?,quote_request
-Can you provide a quote for 300 sandbags?,quote_request
-What’s the price for 100 pairs of work boots?,quote_request
-How much for 20 industrial ladders?,quote_request
-"Can I get a quote for 1,000 paper envelopes?",quote_request
-What’s the cost of 200 safety goggles?,quote_request
-Can you quote me on 50 power generators?,quote_request
-How much for 10 shipping crates?,quote_request
-What’s the price for 500 bags of fertilizer?,quote_request
-Can you provide a quote for 100 solar panels?,quote_request
-What’s the price for 20 electric scooters?,quote_request
-How much would it cost for 500 yards of fabric?,quote_request
-Can I get a quote for 50 gallons of paint?,quote_request
-What’s the cost of a bulk order of 100 desks?,quote_request
-Can you quote me on 30 power tools?,quote_request
-"How much for 1,000 disposable gloves?",quote_request
-What’s the price for 200 face masks?,quote_request
-Can I get a price for 50 water bottles?,quote_request
-What would 300 batteries cost?,quote_request
-How much is a shipment of 20 lawnmowers?,quote_request
-Can you provide pricing for 500 LED bulbs?,quote_request
-"What’s the cost of 1,000 plastic bags?",quote_request
-How much would it be for 50 security cameras?,quote_request
-Can I get a quote for 200 fire alarms?,quote_request
-What’s the price for a bulk order of 100 helmets?,quote_request
-How much for 500 meters of copper wire?,quote_request
-Can you quote me on 30 pairs of hiking boots?,quote_request
-What’s the cost of 200 light fixtures?,quote_request
-How much would it be for 20 vending machines?,quote_request
-Can you provide a quote for 50 air purifiers?,quote_request
-"What’s the price for 1,000 paper plates?",quote_request
-How much for 100 pounds of fertilizer?,quote_request
-Can I get a price for 20 electric heaters?,quote_request
-What would 500 pencils cost?,quote_request
-"How much for 1,000 business cards?",quote_request
-Can you quote me on 50 computer monitors?,quote_request
-What’s the price for a bulk order of 100 toolboxes?,quote_request
-How much would it cost for 200 storage bins?,quote_request
-Can I get pricing for 50 hand sanitizers?,quote_request
-What’s the cost of 10 power drills?,quote_request
-"How much for 1,000 lanyards?",quote_request
-Can you provide a quote for 20 servers?,quote_request
-What’s the price for 500 mouse pads?,quote_request
-How much would it be for 30 electric fans?,quote_request
-Can I get a price for 200 flash drives?,quote_request
-What would 300 staplers cost?,quote_request
-How much for 50 garden hoses?,quote_request
-Can you quote me on 20 projectors?,quote_request
-"What’s the cost of 1,000 plastic utensils?",quote_request
-How much would it be for 100 metal pipes?,quote_request
-Can you provide pricing for 50 electric ovens?,quote_request
-What’s the price for 20 air conditioners?,quote_request
-"How much for 1,000 paper napkins?",quote_request
-Can I get a quote for 500 face shields?,quote_request
-What’s the cost of 200 cable ties?,quote_request
-How much would it be for 50 car jacks?,quote_request
-Can you provide a quote for 30 wireless routers?,quote_request
-"What’s the price for 1,000 packing boxes?",quote_request
-How much for 100 pounds of sugar?,quote_request
-Can I get a price for 50 industrial vacuums?,quote_request
-What would 300 safety goggles cost?,quote_request
-How much for 20 electric bicycles?,quote_request
-"Can you quote me on 1,000 file folders?",quote_request
-What’s the cost of 200 clipboards?,quote_request
-How much would it be for 50 water heaters?,quote_request
-Can I get a quote for 30 photocopiers?,quote_request
-"What’s the price for 1,000 envelopes?",quote_request
-How much for 500 coffee mugs?,quote_request
-Can you provide a quote for 20 sewing machines?,quote_request
-What’s the cost of 200 plastic trays?,quote_request
-How much would it be for 50 portable chargers?,quote_request
-Can I get a price for 300 earbuds?,quote_request
-What would 500 markers cost?,quote_request
-How much for 100 pairs of scissors?,quote_request
-Can you quote me on 50 mobile phones?,quote_request
-"What’s the cost of 1,000 keychains?",quote_request
-How much would it be for 200 yoga mats?,quote_request
-Can you provide pricing for 20 gym treadmills?,quote_request
-What’s the price for 500 rolls of plastic wrap?,quote_request
-How much for 30 high-end laptops?,quote_request
-Can I get a quote for 200 wireless keyboards?,quote_request
-"What’s the cost of 1,000 plastic containers?",quote_request
-How much would it be for 100 LED projectors?,quote_request
-Can you provide a quote for 50 power generators?,quote_request
-"What’s the price for 1,000 plastic cups?",quote_request
-How much for 200 shipping pallets?,quote_request
-Can I get a price for 20 industrial freezers?,quote_request
-What would 500 earplugs cost?,quote_request
-"How much for 1,000 sheets of paper?",quote_request
-Can you quote me on 50 electric grills?,quote_request
-What’s the cost of 20 conference tables?,quote_request
-How much would it be for 100 chairs?,quote_request
-"Can you provide pricing for 1,000 stickers?",quote_request
-What’s the price for 50 first aid kits?,quote_request
-How much for 200 raincoats?,quote_request
-Can I get a quote for 30 plasma TVs?,quote_request
-What’s the cost of 500 cardboard boxes?,quote_request
-"How much would it be for 1,000 candy bars?",quote_request
-Can you provide a quote for 20 fireproof safes?,quote_request
-What’s the price for 50 cordless phones?,quote_request
-How much for 500 water filters?,quote_request
-Can I get a price for 200 sleeping bags?,quote_request
-"What would 1,000 balloons cost?",quote_request
-How much for 20 heavy-duty locks?,quote_request
-Can you quote me on 500 umbrellas?,quote_request
-What’s the cost of 200 cleaning brushes?,quote_request
-How much would it be for 50 toolkits?,quote_request
-"Can you provide pricing for 1,000 pens?",quote_request
-What’s the price for 30 fax machines?,quote_request
-How much for 500 backpacks?,quote_request
-Can I get a quote for 20 patio sets?,quote_request
-"What’s the cost of 1,000 party hats?",quote_request
-How much would it be for 200 plant pots?,quote_request
-Can you provide a quote for 50 extension cords?,quote_request
-What’s the price for 500 tablecloths?,quote_request
-How much for 20 baby cribs?,quote_request
-"Can I get a price for 1,000 wine glasses?",quote_request
-What would 30 recliners cost?,quote_request
-How much for 500 disposable razors?,quote_request
-Can you quote me on 200 tennis balls?,quote_request
-What’s the cost of 50 skateboards?,quote_request
-How much would it be for 20 kayaks?,quote_request
-"Can you provide pricing for 1,000 T-shirts?",quote_request
-What’s the price for 200 reusable straws?,quote_request
-How much for 30 air mattresses?,quote_request
-Can I get a quote for 500 picture frames?,quote_request
-What’s the cost of 50 cordless drills?,quote_request
-"How much would it be for 1,000 dishwashing sponges?",quote_request
-Can you provide a quote for 20 standing desks?,quote_request
-What’s the price for 500 ceramic tiles?,quote_request
-How much for 200 power strips?,quote_request
-Can I get a price for 50 fishing rods?,quote_request
-"What would 1,000 pairs of socks cost?",quote_request
-How much for 30 upright vacuum cleaners?,quote_request
-Can you quote me on 200 industrial fans?,quote_request
-What’s the cost of 50 microwaves?,quote_request
-"How much would it be for 1,000 cookbooks?",quote_request
-Can you provide pricing for 20 pool tables?,quote_request
-What’s the price for 500 pairs of gloves?,quote_request
-How much for 200 hand trucks?,quote_request
-Can I get a quote for 50 baby strollers?,quote_request
-"What’s the cost of 1,000 notepads?",quote_request
-How much would it be for 20 camping tents?,quote_request
-Can you provide a quote for 500 measuring tapes?,quote_request
-What’s the price for 200 leather jackets?,quote_request
-How much for 30 massage chairs?,quote_request
-"Can I get a price for 1,000 rubber bands?",quote_request
-What would 500 garden rakes cost?,quote_request
-How much for 20 4K cameras?,quote_request
-Can you quote me on 50 chainsaws?,quote_request
-"What’s the cost of 1,000 storage boxes?",quote_request
-How much would it be for 200 LED lamps?,quote_request
-Can I get a quote for 500 units of your product?,quote_request
-Please provide a quote for website design services.,quote_request
-What would the cost be for catering an event for 100 people?,quote_request
-Can you quote me on shipping costs for a bulk order?,quote_request
-How much do you charge for monthly IT support services?,quote_request
-I need a quote for custom software development.,quote_request
-What is the price for a 12-month subscription to your service?,quote_request
-"Can you provide a quote for printing 1,000 brochures?",quote_request
-Please send me a quote for a 3-bedroom apartment cleaning.,quote_request
-How much would it cost to repair a leaky roof?,quote_request
-Can I get a quote for 100 custom t-shirts?,quote_request
-What is the cost of a new HVAC installation?,quote_request
-Can you quote me on landscaping services for a small yard?,quote_request
-How much do you charge for photography services for a wedding?,quote_request
-Please provide a quote for office furniture for 20 employees.,quote_request
-What’s the price for a 10-user license for your software?,quote_request
-Can you quote the cost of building a custom WordPress site?,quote_request
-What’s the cost to ship a package internationally?,other
-"Can I get a quote for 5,000 promotional pens?",quote_request
-What is the price for a year of cloud storage?,quote_request
-Please send me a quote for a video editing project.,quote_request
-How much do you charge for translation services per word?,quote_request
-Can you provide a quote for custom packaging materials?,quote_request
-What would the cost be for a weekly meal delivery service?,quote_request
-Can I get a quote for social media marketing services?,quote_request
-What’s the price for a weekend stay at your hotel?,quote_request
-Please quote the cost of a private tutor for 10 sessions.,quote_request
-How much do you charge for a fitness trainer per hour?,quote_request
-"Can you quote me for pest control services for a 2,000 sq ft house?",quote_request
-What is the cost of a custom engagement ring?,quote_request
-Can I get a quote for auto insurance for a 2020 Honda Civic?,quote_request
-What’s the cost of a full-page ad in your magazine?,quote_request
-Please provide a quote for a home remodeling project.,quote_request
-How much would it cost to develop a mobile app?,quote_request
-Can you quote me on the price of solar panel installation?,quote_request
-What’s the price for 50 gift boxes with custom branding?,quote_request
-Please send me a quote for a weekend car rental.,quote_request
-How much do you charge for interior painting per square foot?,quote_request
-Can I get a quote for dog grooming services?,quote_request
-What’s the price for 200 embroidered caps?,quote_request
-Please provide a quote for 3 hours of legal consultation.,quote_request
-How much do you charge for data recovery services?,quote_request
-Can you quote the cost of a custom logo design?,quote_request
-What’s the price for a one-day conference room rental?,quote_request
-Please send me a quote for a monthly gym membership.,quote_request
-How much would it cost to host a 50-guest wedding?,quote_request
-Can you provide a quote for a corporate training workshop?,quote_request
-What’s the price for 500 custom business cards?,quote_request
-Please quote the cost of a home inspection.,quote_request
-How much do you charge for drone photography services?,quote_request
-Can I get a quote for a custom-built gaming PC?,quote_request
-"What is the cost of 1,000 pounds of bulk coffee beans?",quote_request
-Please provide a quote for long-distance moving services.,quote_request
-What’s the price for an annual maintenance contract?,quote_request
-How much do you charge for voice-over recording?,quote_request
-Can you quote me on window replacement for 10 windows?,quote_request
-What’s the cost for custom signage for a retail store?,quote_request
-Please send me a quote for website hosting services.,quote_request
-How much do you charge for corporate event planning?,quote_request
-Can I get a quote for a one-week yacht rental?,quote_request
-What’s the price for a custom-tailored suit?,quote_request
-"Please provide a quote for 5,000 branded water bottles.",quote_request
-How much would it cost to install hardwood flooring?,quote_request
-Can you quote me on cloud computing services for small businesses?,quote_request
-What is the price for a business-class flight to Tokyo?,quote_request
-Please send me a quote for cybersecurity consultation.,quote_request
-How much do you charge for a family portrait session?,quote_request
-Can I get a quote for monthly accounting services?,quote_request
-What’s the cost for a new desktop computer setup?,quote_request
-Please provide a quote for annual car maintenance.,quote_request
-How much do you charge for virtual assistant services?,quote_request
-Can you quote me on a weekend retreat package?,quote_request
-What’s the price for a subscription to your analytics platform?,quote_request
-Please send me a quote for professional headshots.,quote_request
-How much would it cost to repair a cracked windshield?,quote_request
-Can I get a quote for a year of home insurance?,quote_request
-What’s the cost of a personalized gift hamper?,quote_request
-Please provide a quote for commercial cleaning services.,quote_request
-How much do you charge for bookkeeping per hour?,quote_request
-Can you quote me on building a custom API?,quote_request
-What’s the price for a two-week online course?,quote_request
-Please send me a quote for pet boarding services.,quote_request
-How much would it cost to lease a commercial property?,other
-Can I get a quote for 200 reusable shopping bags?,quote_request
-What’s the cost of a premium car wash service?,quote_request
-Please provide a quote for translation services for a 20-page document.,quote_request
-How much do you charge for portrait painting commissions?,quote_request
-Can you quote the cost of a complete SEO audit?,quote_request
-What is the price for a day of childcare services?,quote_request
-Please send me a quote for installing a security system.,quote_request
-How much would it cost to print 500 custom calendars?,quote_request
-Can I get a quote for a 7-day guided tour in Europe?,quote_request
-What’s the price for annual lawn care services?,quote_request
-Please provide a quote for building a custom database.,quote_request
-How much do you charge for a private yoga class?,quote_request
-Can you quote me for 50 pounds of organic honey?,quote_request
-What’s the cost of a 5-year extended warranty?,quote_request
-Please send me a quote for custom app development.,quote_request
-How much would it cost to rent a moving truck?,quote_request
-Can I get a quote for hosting a corporate retreat?,quote_request
-What’s the price for 10 hours of graphic design work?,quote_request
-Please provide a quote for catering services for a small gathering.,quote_request
-How much do you charge for a personal stylist consultation?,quote_request
-Can you quote me on a group fitness class package?,quote_request
-"What is the cost of printing 1,000 catalogs?",quote_request
-Please send me a quote for a landscape design project.,quote_request
-How much would it cost to ship a pallet of goods?,quote_request
-Can I get a quote for voice acting for a commercial?,quote_request
-What’s the price for a customized CRM system?,quote_request
-Please provide a quote for 2 weeks of language tutoring.,quote_request
-How much do you charge for a detailed market analysis?,quote_request
-Can you quote the cost of fence installation for a backyard?,quote_request
-What’s the cost of a live band for a wedding reception?,quote_request
-Please send me a quote for virtual reality development services.,quote_request
-How much would it cost to produce a 3-minute promotional video?,quote_request
-Can I get a quote for commercial pest control services?,quote_request
-What’s the price for replacing carpet in 3 rooms?,quote_request
-Please provide a quote for graphic design of a company logo.,quote_request
-How much do you charge for private music lessons?,quote_request
-Can you quote me on managing a small business’s social media?,quote_request
-What’s the cost of renting audio-visual equipment for an event?,quote_request
-Please send me a quote for a business website redesign.,quote_request
-How much would it cost to hire an executive coach?,quote_request
-Can I get a quote for an annual subscription to your software?,quote_request
-What’s the price for engraving services for 50 awards?,quote_request
-Please provide a quote for monthly email marketing campaigns.,quote_request
-How much do you charge for personal chef services?,quote_request
-Can you quote the cost of a conference booth setup?,quote_request
-What is the cost of a custom-built treehouse?,quote_request
-Please send me a quote for virtual event hosting services.,quote_request
-How much would it cost to produce a batch of custom candles?,quote_request
-Can I get a quote for custom window treatments?,quote_request
-What’s the price for premium gym equipment?,quote_request
-Please provide a quote for an annual maintenance plan for appliances.,quote_request
-How much do you charge for a professional resume rewrite?,quote_request
-Can you quote me on training services for employees?,quote_request
-What’s the cost of a comprehensive digital marketing strategy?,quote_request
-Please send me a quote for outdoor patio furniture for a restaurant.,quote_request
-How much would it cost to build a mobile-responsive website?,quote_request
-Can I get a quote for repair services for industrial machinery?,quote_request
-What’s the price for a family photography package?,quote_request
-Please provide a quote for regular dog walking services.,quote_request
-How much do you charge for video conferencing hardware?,quote_request
-Can you quote the cost of a professional DJ for a party?,quote_request
-What is the price of hosting a virtual conference for 500 attendees?,quote_request
-"Please send me a quote for manufacturing 10,000 units of a product.",quote_request
-How much would it cost to replace an air conditioning unit?,quote_request
-Can I get a quote for legal document preparation?,quote_request
-What’s the price for a brand identity package?,quote_request
+"Subject: Request for Quote: Multiple Items for Upcoming Project
+
+Dear [Your Company Name/Team],
+
+I hope this email finds you well. I am reaching out to request a detailed quote for several items that we need for an upcoming project. Below is a breakdown of our requirements:
+
+    Lighting Fixtures:
+        Type: Outdoor LED Fixtures (100W)
+        Quantity: 50 units
+        Specific Requirements: Must be suitable for installation on 15-foot poles and include mounting brackets.
+
+    Protective Equipment:
+        Gloves:
+            Type: Industrial Grade, Chemical Resistant
+            Sizes: Medium (30 pairs), Large (20 pairs)
+            Colors: Preference for red or blue if available.
+        Face Shields:
+            Type: Full-Coverage, Anti-Fog
+            Quantity: 25 units
+
+    Cabling:
+        Type: Armored Power Cables
+        Specifications: 12-gauge, 500 feet per reel
+        Quantity: 3 reels
+        Additional Requirements: Must meet IP65 waterproofing standards.
+
+    Shipping Details:
+        Delivery Location: 1234 Industrial Park Avenue, Suite 567, Houston, TX 77001
+        Delivery Deadline: Preferably by February 15, 2025.
+
+    Additional Information:
+        Do you offer bulk discounts for large orders?
+        Are there expedited shipping options available?
+        Can you include warranty details and any applicable service agreements for the lighting fixtures?
+
+Please provide a comprehensive quote that includes:
+
+    Itemized pricing for each product
+    Applicable taxes
+    Shipping costs
+    Any discounts or promotional offers
+
+If you need further information or clarification, feel free to reach out to me directly. I look forward to receiving your quote and discussing how we can move forward.","{
+  ""classification"": ""quote_request"",
+  ""summary"": ""Request for quote for multiple items for an upcoming project"",
+  ""categories"": [""Lighting"", ""Protective Equipment"", ""Cabling""],
+  ""subcategory"": [""Outdoor LED Fixtures"", ""Industrial Grade Gloves"", ""Full-Coverage Face Shields"", ""Armored Power Cables""],
+  ""products"": [
+    {""name"": ""Outdoor LED Fixtures (100W)"", ""qty"": 50},
+    {""name"": ""Industrial Grade Gloves (Medium)"", ""qty"": 30},
+    {""name"": ""Industrial Grade Gloves (Large)"", ""qty"": 20},
+    {""name"": ""Full-Coverage Face Shields"", ""qty"": 25},
+    {""name"": ""Armored Power Cables (12-gauge, 500ft)"", ""qty"": 3}
+  ],
+  ""location"": ""1234 Industrial Park Avenue, Suite 567, Houston, TX 77001"",
+  ""questions"": [
+    ""Do you offer bulk discounts for large orders?"",
+    ""Are there expedited shipping options available?"",
+    ""Can you include warranty details and any applicable service agreements for the lighting fixtures?""
+  ],
+  ""need_by_date"": ""February 15, 2025""
+}"
+"Hello 
+
+Please see attached for your final bill. Remaining balance needed is $2,545.09
+
+","{
+  ""classification"": ""other""
+}"
+"I hope your New Year is off to a great start.
+
+This month, Delta kicked off our Centennial year at CES 2025 in Las Vegas, celebrating our first 100 years of flight while offering our vision for the future of air travel. Over the decades, technology and innovation have propelled us forward, but we’ve always been guided by our values of putting people first in everything we do.
+
+As we embark on a new year, we’re committed to a bold vision that builds on our first century of excellence, driven by our goals of providing welcoming, elevated and caring service to you every time you fly.
+ 	Luggage Tag Icon	 	
+
+Elevating The Power Of SkyMiles
+
+The future of SkyMiles Membership is about much more than earning rewards. It’s about access to travel and lifestyle benefits you can’t find anywhere else. Partners like American Express, Starbucks, and others broaden the range of benefits we provide to you. And as we shared at CES, we have a new partner to further enhance your experience: Uber.  Beginning this spring, you’ll be able to start earning on eligible Uber rides to the airport as well as Premium and Uber Reserve rides. Plus, you’ll now earn on eligible Uber Eats deliveries, as we focus on providing value across your entire trip and beyond.
+ 	Customer Icon	 	
+
+Making It All About You
+
+For a century, the people of Delta have worked to make you and every single one of our customers feel special. Today, we’re building on that legacy to create a personalized experience for you that complements the signature, human touch that only our employees can provide.
+
+At CES, we unveiled Delta Concierge, a digital tool built into the Fly Delta app as your own personal assistant, which uses generative AI to make your travel easier, reduce stress and inspire you to enjoy the journey. And we continue to evolve and personalize our Delta Sync platform, providing tailored entertainment and content directly to your seatback screen. We also announced that YouTube will be joining Delta, so SkyMiles Members will soon be able to enjoy their favorite creators, podcasts and music artists ad-free while on board most flights with Delta Sync Wi-Fi and on Delta Sync seatback.
+
+Plus, coming soon, you can discover amazing destinations through the eyes of those who know them best. Delta Locals is a new, innovative platform connecting you to locally curated inspiration for your next trip.
+ 	Plane Seat Icon	 	
+
+Elevating Your Experience
+
+We want every part of your trip to be enjoyable, whether on the ground or in the air. In the coming years, you’ll see everything from new cabin interiors designed to make you feel at home during your travels to next-generation aircraft. Delta also has ushered in a new era of premium travel for you with the opening of Delta One Lounges in New York-JFK, Boston, Los Angeles and, coming soon, Seattle. Our Lounges offer a variety of amenities for the premium traveler, from fine dining to spa-like wellness treatments and valet services. And we continue to invest in our Delta Sky Clubs, while opening new clubs, including our newest Club in Charlotte.
+
+From its earliest days, flying has changed our world for the better, connecting people and communities in a way once unimaginable. We owe it to future generations to ensure that travel is accessible and sustainable as we bring the world closer than ever before. Together, we’re building a future of limitless possibilities.
+
+Thank you for the trust you place in us and your continued loyalty as a valued SkyMiles Member. I’m inspired and exhilarated to have you on this journey with us.
+
+See you in the skies.
+
+Sincerely,Subject: Request for Quote: Multiple Products and Customization Options
+
+Dear [Your Company Name/Team],
+
+I am writing to request a detailed quote for several products we require for a large-scale industrial project. The details are as follows:
+
+    Custom Electrical Enclosures:
+        Quantity: 30 units
+        Material: Stainless steel, 304 grade
+        Dimensions: 24x24x12 inches
+        Customizations:
+            Pre-drilled mounting holes for cable entry.
+            IP67-rated sealing for waterproofing.
+        Additional Notes: Please include options for powder coating in gray and black.
+
+    HVAC Units:
+        Type: Wall-mounted HVAC units with cooling and heating capabilities.
+        Quantity: 15 units
+        Specifications:
+            Suitable for maintaining temperatures between 60°F and 75°F.
+            Minimum BTU: 10,000.
+            Energy Star certified.
+        Installation: Include a separate cost breakdown for installation services at our facility in Denver, CO.
+
+    Industrial Lighting:
+        Type: High-bay LED lights.
+        Quantity: 50 units
+        Requirements:
+            Minimum 15,000 lumens.
+            5000K color temperature.
+            Adjustable beam angles.
+
+    Shipping and Delivery:
+        Delivery Location: 9876 Industrial Road, Suite 250, Denver, CO 80239.
+        Delivery Deadline: March 10, 2025.
+        Please include expedited shipping options and their associated costs.
+
+    Additional Questions:
+        Do you offer bulk discounts for orders exceeding $50,000?
+        What are your warranty terms for these products?
+        Are there any extended service agreements available for the HVAC units?
+
+Please provide a comprehensive quote that includes:
+
+    Itemized pricing for each product and service.
+    Applicable taxes.
+    Shipping and handling costs.
+    Any discounts or promotional offers currently available.
+
+If you require further details or clarification, feel free to contact me directly. I look forward to receiving your quote and discussing the next steps.
+
+Best regards,","{
+  ""classification"": ""quote_request"",
+  ""summary"": ""Request for quote for multiple products and customization options for a large-scale industrial project"",
+  ""categories"": [""Electrical Enclosures"", ""HVAC Units"", ""Industrial Lighting""],
+  ""subcategory"": [""Custom Electrical Enclosures"", ""Wall-mounted HVAC units"", ""High-bay LED lights""],
+  ""products"": [
+    {""name"": ""Custom Electrical Enclosures"", ""qty"": 30},
+    {""name"": ""HVAC Units"", ""qty"": 15},
+    {""name"": ""Industrial Lighting"", ""qty"": 50}
+  ],
+  ""location"": ""9876 Industrial Road, Suite 250, Denver, CO 80239"",
+  ""questions"": [
+    ""Do you offer bulk discounts for orders exceeding $50,000?"",
+    ""What are your warranty terms for these products?"",
+    ""Are there any extended service agreements available for the HVAC units?""
+  ],
+  ""need_by_date"": ""March 10, 2025""
+}"
