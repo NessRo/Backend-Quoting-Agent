@@ -11,12 +11,10 @@
 "{
   "classification":"quote_request",
   "summary": "Request for 20 outdoor 100W LED lights for a new project.",
-  "categories": ["Lighting","furniture","lawnmowers"]
-  "subcategory": ["Outdoor LED","chairs","electric lawnmowers"]
   "products" : [
-    {"name":"bulb light 50W","qty":20},
-    {"name":"plastic chair #2", "qty":100},
-    {"name":"john deer mower #5", "qty":1}
+    {"name":"bulb light 50W","qty":20, "category":"Lighting", "subcategory":"Outdoor LED"},
+    {"name":"plastic chair #2", "qty":100, "category":"furniture","subcategory":"chairs"},
+    {"name":"john deer mower #5", "qty":1, "category":"lawnmowers","subcategory":"electric lawnmowers"}
     ]
   "location": "123 main st, austin, tx 78730",
   "questions":[
