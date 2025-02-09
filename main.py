@@ -4,6 +4,7 @@ import Utils
 import asyncio
 
 
+
 prompts = Utils.ingestion_functions.user_text_prompt_ingestion(file_path='./samples/quote_request_samples.txt')
 
 prompt = prompts[0]
@@ -15,6 +16,7 @@ if response['classification'] == 'quote_request':
 
     products = response['products']
 
+
     array_of_input =[]
 
     for product in products:
@@ -24,13 +26,24 @@ if response['classification'] == 'quote_request':
     
     embeddings = asyncio.run(Utils.api_functions.batch_embed_texts(texts=array_of_input))
 
+    internal_products = []
+
     for embedding in embeddings:
-        internal_products = Utils.db_functions.vector_search(embedding=embedding)
-        print(internal_products)
-    
+        internal_products.append(Utils.db_functions.vector_search(embedding=embedding))
+
+    for index, product in enumerate(response['products']):
+        product['top_X_internal_products'] = [item[0] for item in internal_products[index]]
+
 
 elif response['classification'] == 'other':
     print('send communication that what it recieved was not a request it recognizes')
+
+Utils.db_functions.store_request(data=response,
+                                     request_type=response['classification'],
+                                     created_by='system',
+                                     status = 'initial_origination')
+
+print(response)
 
 
 

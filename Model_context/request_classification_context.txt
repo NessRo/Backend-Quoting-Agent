@@ -6,7 +6,7 @@
 "its important to note that 'quote_request' has a strict definition of being able to provide a specific service or specific product at price. it is not general questions about a product or service"
 "for a 'quote_request' we must be able to determine what is the exact item or service they are looking to purchase."
 "All other queries are classified as 'other'."
-"respond only with a JSON structure. no free text"
+"respond only with a JSON structure. no free text. you must respond with a JSON structure that includes the classification key and value. THIS IS CRITICAL!"
 "Examples of responses: "
 "{
   "classification":"quote_request",
