@@ -72,3 +72,31 @@ def store_request(data,request_type,created_by, status):
     cur.close()
     conn.close()
 
+def store_email(sender :str,
+                subject: str,
+                body: any,
+                provider: str,
+                thread_id: str,
+                msg_id: str,
+                status: str):
+    
+    conn = psycopg2.connect(
+        dbname=os.getenv("APPLICATION_DATABSE"),
+        user=os.getenv("DATABASE_USER"),
+        password=os.getenv("DATABASE_PASSWORD"),
+        host=os.getenv("DATABSE_HOST"), 
+        port=os.getenv("DATABSE_PORT")
+    )
+    cur = conn.cursor()
+
+    sql = """
+    INSERT INTO transactions.emails (sender, subject, body,provider,thread_id,msg_id,status)
+    VALUES (%s, %s, %s, %s,%s,%s,%s);
+    """
+
+    cur.execute(sql, (sender, subject, body,provider,thread_id,msg_id, status))
+
+    conn.commit()
+
+    cur.close()
+    conn.close()

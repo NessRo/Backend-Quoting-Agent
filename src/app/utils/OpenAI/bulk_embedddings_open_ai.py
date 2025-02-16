@@ -4,7 +4,7 @@ import time
 import os
 
 
-from Utils.OpenAI import api_functions
+from utils.OpenAI import api_functions
 
 # Database Connection
 conn = psycopg2.connect(

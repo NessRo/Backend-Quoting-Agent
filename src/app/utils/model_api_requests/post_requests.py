@@ -1,6 +1,6 @@
 import requests
 import json
-from Utils.Generic import ingestion_functions
+from app.utils.generic import ingestion_functions
 import os
 import asyncio
 from dotenv import load_dotenv
