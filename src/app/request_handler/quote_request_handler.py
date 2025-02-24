@@ -1,16 +1,5 @@
-import requests
-import json
-import utils
-import asyncio
 
 
-
-prompts = utils.ingestion_functions.user_text_prompt_ingestion(file_path='./samples/quote_request_samples.txt')
-
-prompt = prompts[0]
-
-
-response = utils.post_requests.Generate_unstructured_classification(prompt=prompt)
 
 if response['classification'] == 'quote_request':
 
@@ -44,8 +33,3 @@ utils.db_functions.store_request(data=response,
                                      status = 'initial_origination')
 
 print(response)
-
-
-
-
-

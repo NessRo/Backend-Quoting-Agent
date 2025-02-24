@@ -1,4 +1,4 @@
-from app.email.gmail_functions import check_email
+from src.app.email.gmail_functions import check_email
 
 if __name__ == "__main__":
     while True:

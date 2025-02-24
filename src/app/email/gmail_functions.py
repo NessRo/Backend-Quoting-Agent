@@ -4,7 +4,7 @@ from email.header import decode_header
 import os
 import time
 from dotenv import load_dotenv
-from app.utils import database
+from src.app.utils.database import db_functions
 
 
 load_dotenv()
@@ -86,7 +86,7 @@ def check_email():
                    
                     email_body = extract_full_email_body(msg)  # Extract full email body
 
-                    database.db_functions.store_email(sender=sender,
+                    db_functions.store_email(sender=sender,
                                              subject=subject,
                                              body=email_body,
                                              provider='gmail',
