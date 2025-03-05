@@ -16,7 +16,8 @@ def generate_unstructured_classification(prompt):
     "system": db_functions.retrieve_model_context(context_type='request_handler'),
     "prompt":  prompt,
     "format": "json",
-    "stream": False  # Set to True for streaming responses
+    "stream": False,  # Set to True for streaming responses
+    "options": { "num_ctx": 4096 }
     }
 
     headers = {"Content-Type": "application/json"}

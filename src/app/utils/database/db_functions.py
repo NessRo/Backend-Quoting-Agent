@@ -60,8 +60,13 @@ def store_request(request_type: str,
     cur = conn.cursor()
 
     sql = """
-    INSERT INTO transactions.requests (request_type, status, source,source_id)
-    VALUES (%s, %s, %s, %s);
+    INSERT INTO transactions.requests (request_type, status, source, source_id)
+        VALUES (%s, %s, %s, %s)
+        ON CONFLICT ON CONSTRAINT requests_source_id_key
+        DO UPDATE
+        SET request_type = EXCLUDED.request_type,
+            status      = EXCLUDED.status;
+
     """
 
     cur.execute(sql, (request_type, status, source, source_id))
@@ -114,10 +119,38 @@ def retrieve_request():
     cur = conn.cursor()
 
     sql = """
-    SELECT thread_id, msg_id, subject, body
-    FROM transactions.emails
-    WHERE status = 'new'
-    LIMIT 10;
+    WITH new_emails AS (
+	SELECT thread_id
+	    FROM transactions.emails
+	    WHERE status = 'new'
+		GROUP BY thread_id
+	    LIMIT 10
+    ),
+
+    numbered_rows AS (
+        SELECT
+            thread_id,
+            body,
+            subject,
+            ROW_NUMBER() OVER (PARTITION BY thread_id ORDER BY timestamp) AS rn,
+            FIRST_VALUE(subject) OVER (PARTITION BY thread_id ORDER BY timestamp) AS earliest_subject
+        FROM transactions.emails
+    ),
+
+    email_history as (
+        SELECT numbered_rows.thread_id,
+                MAX(earliest_subject) AS subject,
+                jsonb_object_agg(
+                    CONCAT('msg', rn),
+                    body
+                ORDER BY rn ) AS message_history
+        FROM numbered_rows
+        INNER JOIN new_emails ON new_emails.thread_id = numbered_rows.thread_id
+        GROUP BY numbered_rows.thread_id
+        
+    )
+    select *
+    from email_history;
     """
 
     cur.execute(sql)
