@@ -2,9 +2,13 @@ import imaplib
 import email
 from email.header import decode_header
 import os
-import time
 from dotenv import load_dotenv
 from src.app.utils.database import db_functions
+import re
+import smtplib
+import ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 load_dotenv()
@@ -12,6 +16,77 @@ load_dotenv()
 # Gmail credentials
 EMAIL_USER =  os.getenv("EMAIL_USER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
+def send_reply(
+    from_address,
+    to_address,
+    original_subject,
+    original_message_id,
+    reply_body,
+    username,
+    password
+):
+    # Prepare the subject: Prepend "Re:" only if it's not already there
+    if not original_subject.lower().startswith("re:"):
+        subject = "Re: " + original_subject
+    else:
+        subject = original_subject
+
+    # Create a multipart message
+    msg = MIMEMultipart()
+    msg["From"] = from_address
+    msg["To"] = to_address
+    msg["Subject"] = subject
+
+    # — The magic for threading —
+    msg["In-Reply-To"] = original_message_id
+    # If there are multiple references (like a chain), you'd typically join them here.
+    # For a simple case, use the same as In-Reply-To. If you have an existing References header from the original,
+    # you can append the new message ID. But for now:
+    msg["References"] = original_message_id
+
+    # Attach the reply text
+    msg.attach(MIMEText(reply_body, "plain"))
+
+    # Use Gmail’s SMTP server with STARTTLS on port 587
+    smtp_server = "smtp.gmail.com"
+    port = 587
+    context = ssl.create_default_context()
+
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.ehlo()
+        server.starttls(context=context)
+        server.ehlo()
+        server.login(username, password)
+        server.sendmail(from_address, to_address, msg.as_string())
+
+def strip_email_chain(email_text):
+    """
+    Returns only the most recent message (top part),
+    stripping out everything below any recognized reply marker.
+    """
+    # Some common markers you might see:
+    # We'll allow optional leading '>' or spaces before "On ... wrote:"
+    # and do a simple approach for "On XX wrote:", "-----Original Message-----", or "From: XY"
+    reply_markers = [
+        r"^[>\s]*On .+ wrote:$",
+        r"^[>\s]*-----Original Message-----$",
+        r"^[>\s]*From: .+"
+    ]
+    
+    # Combine them into a single regex
+    pattern = re.compile("(" + "|".join(reply_markers) + ")", re.IGNORECASE)
+    
+    stripped_lines = []
+    for line in email_text.splitlines():
+        # Check if (after removing leading > / space) it matches a reply marker
+        if pattern.match(line):
+            # Found the beginning of older chain, so stop
+            break
+        stripped_lines.append(line)
+    
+    return "\n".join(stripped_lines).strip()
+
 
 def extract_full_email_body(msg):
     """
@@ -64,13 +139,15 @@ def check_email():
             # Fetch the email
             status, msg_data = mail.fetch(email_id, "(X-GM-THRID RFC822)")
 
-            thread_id = None
-
             for response_part in msg_data:
                 if isinstance(response_part, tuple):
                     thread_id = response_part[0].split()[2]
                     msg_id = response_part[0].split()[0]
                     msg = email.message_from_bytes(response_part[1])
+
+                    message_id_rfc822 = msg.get("Message-ID")      # e.g. <[email protected]>
+                    in_reply_to_rfc822 = msg.get("In-Reply-To")    # e.g. <[email protected]>
+                    references_rfc822 = msg.get("References") 
                     
                      
                     # Decode the email subject
@@ -86,15 +163,23 @@ def check_email():
                    
                     email_body = extract_full_email_body(msg)  # Extract full email body
 
+                    email_body = strip_email_chain(email_body)
+
                     db_functions.store_email(sender=sender,
                                              subject=subject,
                                              body=email_body,
                                              provider='gmail',
                                              thread_id=thread_id,
                                              msg_id=msg_id,
-                                             status="new")
+                                             status="new",
+                                             message_id_rfc822=message_id_rfc822,
+                                             in_reply_to_rfc822=in_reply_to_rfc822,
+                                             references_rfc822=references_rfc822)
+                    
+                    
                     
                     print('email logged')
+    
 
             # Mark email as read
             mail.store(email_id, '+FLAGS', '\\Seen')
@@ -105,4 +190,3 @@ def check_email():
 
     # except Exception as e:
     #     print(f"Error checking email: {e}")
-

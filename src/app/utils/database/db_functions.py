@@ -37,7 +37,8 @@ def vector_search(embedding):
 def store_request(request_type: str,
                   status: str, 
                   source: str,
-                  source_id: str):
+                  source_id: str,
+                  reply_sent: bool):
 
     """
     Inserts a new record into the transactions.requests table.
@@ -60,8 +61,8 @@ def store_request(request_type: str,
     cur = conn.cursor()
 
     sql = """
-    INSERT INTO transactions.requests (request_type, status, source, source_id)
-        VALUES (%s, %s, %s, %s)
+    INSERT INTO transactions.requests (request_type, status, source, source_id,reply_sent)
+        VALUES (%s, %s, %s, %s, %s)
         ON CONFLICT ON CONSTRAINT requests_source_id_key
         DO UPDATE
         SET request_type = EXCLUDED.request_type,
@@ -69,7 +70,7 @@ def store_request(request_type: str,
 
     """
 
-    cur.execute(sql, (request_type, status, source, source_id))
+    cur.execute(sql, (request_type, status, source, source_id,reply_sent))
 
     conn.commit()
 
@@ -82,7 +83,10 @@ def store_email(sender :str,
                 provider: str,
                 thread_id: str,
                 msg_id: str,
-                status: str):
+                status: str,
+                message_id_rfc822: str,
+                in_reply_to_rfc822: str,
+                references_rfc822: str):
     
     conn = psycopg2.connect(
         dbname=os.getenv("APPLICATION_DATABASE"),
@@ -94,11 +98,11 @@ def store_email(sender :str,
     cur = conn.cursor()
 
     sql = """
-    INSERT INTO transactions.emails (sender, subject, body,provider,thread_id,msg_id,status)
-    VALUES (%s, %s, %s, %s,%s,%s,%s);
+    INSERT INTO transactions.emails (sender, subject, body,provider,thread_id,msg_id,status,message_id_rfc822,in_reply_to_rfc822,references_rfc822)
+    VALUES (%s, %s, %s, %s,%s,%s,%s,%s,%s,%s);
     """
 
-    cur.execute(sql, (sender, subject, body,provider,thread_id,msg_id, status))
+    cur.execute(sql, (sender, subject, body,provider,thread_id,msg_id, status,message_id_rfc822,in_reply_to_rfc822,references_rfc822))
 
     conn.commit()
 
@@ -107,7 +111,7 @@ def store_email(sender :str,
 
 
 #functions for transacting agaisnt the source of the requests
-def retrieve_request():
+def retrieve_request(retrieval_type:str):
     
     conn = psycopg2.connect(
         dbname=os.getenv("APPLICATION_DATABASE"),
@@ -118,40 +122,103 @@ def retrieve_request():
     )
     cur = conn.cursor()
 
-    sql = """
-    WITH new_emails AS (
-	SELECT thread_id
-	    FROM transactions.emails
-	    WHERE status = 'new'
-		GROUP BY thread_id
-	    LIMIT 10
-    ),
+    match retrieval_type:
 
-    numbered_rows AS (
-        SELECT
-            thread_id,
-            body,
-            subject,
-            ROW_NUMBER() OVER (PARTITION BY thread_id ORDER BY timestamp) AS rn,
-            FIRST_VALUE(subject) OVER (PARTITION BY thread_id ORDER BY timestamp) AS earliest_subject
-        FROM transactions.emails
-    ),
+        case "new_emails":
 
-    email_history as (
-        SELECT numbered_rows.thread_id,
-                MAX(earliest_subject) AS subject,
-                jsonb_object_agg(
-                    CONCAT('msg', rn),
-                    body
-                ORDER BY rn ) AS message_history
-        FROM numbered_rows
-        INNER JOIN new_emails ON new_emails.thread_id = numbered_rows.thread_id
-        GROUP BY numbered_rows.thread_id
-        
-    )
-    select *
-    from email_history;
-    """
+            sql = """
+            WITH new_emails AS (
+            SELECT thread_id
+                FROM transactions.emails
+                WHERE status = 'new'
+                GROUP BY thread_id
+                LIMIT 10
+            ),
+
+            numbered_rows AS (
+                SELECT
+                    thread_id,
+                    body,
+                    subject,
+                    ROW_NUMBER() OVER (PARTITION BY thread_id ORDER BY timestamp) AS rn,
+                    FIRST_VALUE(subject) OVER (PARTITION BY thread_id ORDER BY timestamp) AS earliest_subject
+                FROM transactions.emails
+            ),
+
+            email_history as (
+                SELECT numbered_rows.thread_id,
+                        MAX(earliest_subject) AS subject,
+                        jsonb_object_agg(
+                            CONCAT('msg', rn),
+                            body
+                        ORDER BY rn ) AS message_history
+                FROM numbered_rows
+                INNER JOIN new_emails ON new_emails.thread_id = numbered_rows.thread_id
+                GROUP BY numbered_rows.thread_id
+                
+            )
+            select *
+            from email_history;
+            """
+
+        case "replies":
+
+            sql = """
+            WITH new_replies AS (
+            SELECT source_id
+                FROM transactions.requests
+                WHERE reply_sent = false
+                GROUP BY source_id
+                LIMIT 10
+            ),
+
+            numbered_rows AS (
+                SELECT
+                    thread_id,
+                    body,
+                    subject,
+                    message_id_rfc822,
+                    in_reply_to_rfc822,
+                    ROW_NUMBER() OVER (PARTITION BY thread_id ORDER BY timestamp) AS rn,
+                    FIRST_VALUE(subject) 
+                    OVER (
+                        PARTITION BY thread_id 
+                        ORDER BY timestamp 
+                        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+                    ) AS earliest_subject,
+                    LAST_VALUE(message_id_rfc822) 
+                    OVER (
+                        PARTITION BY thread_id 
+                        ORDER BY timestamp 
+                        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+                    ) AS latest_msg,
+                    LAST_VALUE(in_reply_to_rfc822) 
+                    OVER (
+                        PARTITION BY thread_id 
+                        ORDER BY timestamp 
+                        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+                    ) AS latest_reply_to
+                FROM transactions.emails
+            ),
+
+            email_history as (
+                SELECT numbered_rows.thread_id,
+                    MAX(earliest_subject) AS subject,
+                        jsonb_object_agg(
+                            CONCAT('msg', rn),
+                            body
+                        ORDER BY rn ) AS message_history,
+                        MAX(latest_msg) AS latest_msg,
+                        MAX(latest_reply_to) AS latest_reply_to
+                FROM numbered_rows
+                INNER JOIN new_replies ON new_replies.source_id = numbered_rows.thread_id
+                GROUP BY numbered_rows.thread_id
+                
+            )
+            select *
+            from email_history;
+            """
+
 
     cur.execute(sql)
     results = cur.fetchall()

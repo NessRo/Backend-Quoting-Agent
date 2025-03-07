@@ -9,7 +9,7 @@ while True:
         
         print('polling')
         
-        requests_ = db_functions.retrieve_request()
+        requests_ = db_functions.retrieve_request(retrieval_type='new_emails')
         
         if requests_:
 
@@ -33,7 +33,8 @@ while True:
                                 db_functions.store_request(request_type=response['classification'],
                                             status='ready_for_quote',
                                             source='email',
-                                            source_id=thread_id)
+                                            source_id=thread_id,
+                                            reply_sent=False)
                                 
                                 db_functions.update_request_status(status='processed',
                                                                 thread_id=thread_id)
@@ -41,7 +42,8 @@ while True:
                                 db_functions.store_request(request_type=response['classification'],
                                             status='refine_requirements',
                                             source='email',
-                                            source_id=thread_id)
+                                            source_id=thread_id,
+                                            reply_sent=False)
                                 
                                 db_functions.update_request_status(status='processed',
                                                                 thread_id=thread_id)
