@@ -9,6 +9,9 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.utils import getaddresses
+import uuid
+
 
 
 load_dotenv()
@@ -18,14 +21,15 @@ EMAIL_USER =  os.getenv("EMAIL_USER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 def send_reply(
-    from_address,
     to_address,
     original_subject,
     original_message_id,
     reply_body,
-    username,
-    password
+    message_id
 ):
+    
+    from_address = 'bazaris.quoting.agent@gmail.com'
+    
     # Prepare the subject: Prepend "Re:" only if it's not already there
     if not original_subject.lower().startswith("re:"):
         subject = "Re: " + original_subject
@@ -35,7 +39,11 @@ def send_reply(
     # Create a multipart message
     msg = MIMEMultipart()
     msg["From"] = from_address
-    msg["To"] = to_address
+
+    if isinstance(to_address, str):
+        to_address = to_address.strip("{}").split(",")
+    msg["To"] = ", ".join(to_address)
+
     msg["Subject"] = subject
 
     # — The magic for threading —
@@ -44,6 +52,8 @@ def send_reply(
     # For a simple case, use the same as In-Reply-To. If you have an existing References header from the original,
     # you can append the new message ID. But for now:
     msg["References"] = original_message_id
+
+    msg["Message-ID"] = message_id
 
     # Attach the reply text
     msg.attach(MIMEText(reply_body, "plain"))
@@ -57,7 +67,7 @@ def send_reply(
         server.ehlo()
         server.starttls(context=context)
         server.ehlo()
-        server.login(username, password)
+        server.login(EMAIL_USER, EMAIL_PASSWORD)
         server.sendmail(from_address, to_address, msg.as_string())
 
 def strip_email_chain(email_text):
@@ -160,6 +170,24 @@ def check_email():
                         subject = "(No Subject)"
 
                     sender = msg.get("From", "(Unknown Sender)")
+
+                    # Safely get all headers (returns empty list if not found)
+                    to_addrs = msg.get_all("To", [])
+                    cc_addrs = msg.get_all("Cc", [])
+                    from_addrs = msg.get_all("From", [])
+
+                    # Combine and parse into (name, email) tuples
+                    all_addrs = getaddresses(to_addrs + cc_addrs + from_addrs)
+
+                    # Get just the unique emails, excluding yourself
+                    participants = set()
+                    for name, email_addr in all_addrs:
+                        email_addr = email_addr.strip().lower()
+                        if email_addr and email_addr != EMAIL_USER:
+                            participants.add(email_addr)
+
+                    # Final list
+                    participants = list(participants)
                    
                     email_body = extract_full_email_body(msg)  # Extract full email body
 
@@ -174,9 +202,11 @@ def check_email():
                                              status="new",
                                              message_id_rfc822=message_id_rfc822,
                                              in_reply_to_rfc822=in_reply_to_rfc822,
-                                             references_rfc822=references_rfc822)
+                                             references_rfc822=references_rfc822,
+                                             email_type='inbound',
+                                             participants = participants)
                     
-                    
+
                     
                     print('email logged')
     

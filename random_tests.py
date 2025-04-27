@@ -1,5 +1,6 @@
 import smtplib
 import ssl
+import uuid
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -18,6 +19,8 @@ def send_reply(
     else:
         subject = original_subject
 
+    message_id = f"<{uuid.uuid4()}@gmail.com>"
+
     # Create a multipart message
     msg = MIMEMultipart()
     msg["From"] = from_address
@@ -30,6 +33,8 @@ def send_reply(
     # For a simple case, use the same as In-Reply-To. If you have an existing References header from the original,
     # you can append the new message ID. But for now:
     msg["References"] = original_message_id
+
+    msg["Message-ID"] = message_id
 
     # Attach the reply text
     msg.attach(MIMEText(reply_body, "plain"))

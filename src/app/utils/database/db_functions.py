@@ -86,7 +86,9 @@ def store_email(sender :str,
                 status: str,
                 message_id_rfc822: str,
                 in_reply_to_rfc822: str,
-                references_rfc822: str):
+                references_rfc822: str,
+                email_type:str,
+                participants: list):
     
     conn = psycopg2.connect(
         dbname=os.getenv("APPLICATION_DATABASE"),
@@ -98,11 +100,11 @@ def store_email(sender :str,
     cur = conn.cursor()
 
     sql = """
-    INSERT INTO transactions.emails (sender, subject, body,provider,thread_id,msg_id,status,message_id_rfc822,in_reply_to_rfc822,references_rfc822)
-    VALUES (%s, %s, %s, %s,%s,%s,%s,%s,%s,%s);
+    INSERT INTO transactions.emails (sender, subject, body,provider,thread_id,msg_id,status,message_id_rfc822,in_reply_to_rfc822,references_rfc822,email_type,participants)
+    VALUES (%s, %s, %s, %s,%s,%s,%s,%s,%s,%s,%s, %s);
     """
 
-    cur.execute(sql, (sender, subject, body,provider,thread_id,msg_id, status,message_id_rfc822,in_reply_to_rfc822,references_rfc822))
+    cur.execute(sql, (sender, subject, body,provider,thread_id,msg_id, status,message_id_rfc822,in_reply_to_rfc822,references_rfc822,email_type,participants))
 
     conn.commit()
 
@@ -130,7 +132,7 @@ def retrieve_request(retrieval_type:str):
             WITH new_emails AS (
             SELECT thread_id
                 FROM transactions.emails
-                WHERE status = 'new'
+                WHERE status = 'new' and email_type = 'inbound'
                 GROUP BY thread_id
                 LIMIT 10
             ),
@@ -177,39 +179,47 @@ def retrieve_request(retrieval_type:str):
                     thread_id,
                     body,
                     subject,
-                    message_id_rfc822,
-                    in_reply_to_rfc822,
+					message_id_rfc822,
+					in_reply_to_rfc822,
+					CASE WHEN email_type = 'outbound' THEN 'Assistant_response' ELSE 'User_response' END AS role,
                     ROW_NUMBER() OVER (PARTITION BY thread_id ORDER BY timestamp) AS rn,
                     FIRST_VALUE(subject) 
-                    OVER (
-                        PARTITION BY thread_id 
-                        ORDER BY timestamp 
-                        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
-                    ) AS earliest_subject,
-                    LAST_VALUE(message_id_rfc822) 
-                    OVER (
-                        PARTITION BY thread_id 
-                        ORDER BY timestamp 
-                        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
-                    ) AS latest_msg,
-                    LAST_VALUE(in_reply_to_rfc822) 
-                    OVER (
-                        PARTITION BY thread_id 
-                        ORDER BY timestamp 
-                        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
-                    ) AS latest_reply_to
+				      OVER (
+				        PARTITION BY thread_id 
+				        ORDER BY timestamp 
+				        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+				      ) AS earliest_subject,
+				    LAST_VALUE(message_id_rfc822) 
+				      OVER (
+				        PARTITION BY thread_id 
+				        ORDER BY timestamp 
+				        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+				      ) AS latest_msg,
+				    LAST_VALUE(in_reply_to_rfc822) 
+				      OVER (
+				        PARTITION BY thread_id 
+				        ORDER BY timestamp 
+				        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+				      ) AS latest_reply_to,
+					LAST_VALUE(participants) 
+				      OVER (
+				        PARTITION BY thread_id 
+				        ORDER BY timestamp 
+				        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+				      ) AS latest_participants
                 FROM transactions.emails
             ),
 
             email_history as (
                 SELECT numbered_rows.thread_id,
-                    MAX(earliest_subject) AS subject,
+                       MAX(earliest_subject) AS subject,
                         jsonb_object_agg(
-                            CONCAT('msg', rn),
+                            CONCAT(role, rn),
                             body
                         ORDER BY rn ) AS message_history,
-                        MAX(latest_msg) AS latest_msg,
-                        MAX(latest_reply_to) AS latest_reply_to
+						MAX(latest_msg) AS latest_msg,
+						MAX(latest_reply_to) AS latest_reply_to,
+						MAX(latest_participants) AS latest_participants
                 FROM numbered_rows
                 INNER JOIN new_replies ON new_replies.source_id = numbered_rows.thread_id
                 GROUP BY numbered_rows.thread_id
@@ -231,29 +241,58 @@ def retrieve_request(retrieval_type:str):
     return results
 
 def update_request_status(status: str,
-                          thread_id: str):
+                          thread_id: str,
+                          update_type: str):
     
-    conn = psycopg2.connect(
-        dbname=os.getenv("APPLICATION_DATABASE"),
-        user=os.getenv("DATABASE_USER"),
-        password=os.getenv("DATABASE_PASSWORD"),
-        host=os.getenv("DATABSE_HOST"), 
-        port=os.getenv("DATABSE_PORT")
-    )
-    cur = conn.cursor()
+    match update_type:
 
-    sql = """
-    UPDATE transactions.emails
-    SET status = %s
-    WHERE thread_id = %s;
-    """
+        case 'email_status':
+    
+            conn = psycopg2.connect(
+                dbname=os.getenv("APPLICATION_DATABASE"),
+                user=os.getenv("DATABASE_USER"),
+                password=os.getenv("DATABASE_PASSWORD"),
+                host=os.getenv("DATABSE_HOST"), 
+                port=os.getenv("DATABSE_PORT")
+            )
+            cur = conn.cursor()
 
-    cur.execute(sql, (status,thread_id))
+            sql = """
+            UPDATE transactions.emails
+            SET status = %s
+            WHERE thread_id = %s;
+            """
 
-    conn.commit()
+            cur.execute(sql, (status,thread_id))
 
-    cur.close()
-    conn.close()
+            conn.commit()
+
+            cur.close()
+            conn.close()
+
+        case 'request_reply_status':
+            conn = psycopg2.connect(
+                dbname=os.getenv("APPLICATION_DATABASE"),
+                user=os.getenv("DATABASE_USER"),
+                password=os.getenv("DATABASE_PASSWORD"),
+                host=os.getenv("DATABSE_HOST"), 
+                port=os.getenv("DATABSE_PORT")
+            )
+            cur = conn.cursor()
+
+            sql = """
+            UPDATE transactions.requests
+            SET reply_sent = %s
+            WHERE source_id = %s;
+            """
+
+            cur.execute(sql, (status,thread_id))
+
+            conn.commit()
+
+            cur.close()
+            conn.close()
+
 
 
 #functions related to model context

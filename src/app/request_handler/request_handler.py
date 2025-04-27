@@ -22,7 +22,9 @@ while True:
                             body: {body}'
 
 
-                response = post_requests.generate_unstructured_classification(prompt=prompt)
+                response = post_requests.generate_llm_response(prompt=prompt,
+                                                               request_type='request_classification')
+
 
                 print(response)
 
@@ -37,7 +39,8 @@ while True:
                                             reply_sent=False)
                                 
                                 db_functions.update_request_status(status='processed',
-                                                                thread_id=thread_id)
+                                                                thread_id=thread_id,
+                                                                update_type='email_status')
                         case "other":
                                 db_functions.store_request(request_type=response['classification'],
                                             status='refine_requirements',
@@ -46,7 +49,8 @@ while True:
                                             reply_sent=False)
                                 
                                 db_functions.update_request_status(status='processed',
-                                                                thread_id=thread_id)
+                                                                thread_id=thread_id,
+                                                                update_type='email_status')
                     
         print('waiting')
         time.sleep(5)
