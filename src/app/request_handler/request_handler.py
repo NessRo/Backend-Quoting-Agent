@@ -2,9 +2,6 @@ import time
 from src.app.utils.database import db_functions
 from src.app.utils.model_api_requests import post_requests
 
-types_of_requests = ['quote_request','other']
-
-
 while True:
         
         print('polling')
@@ -21,37 +18,42 @@ while True:
                 prompt = f'subject: {subject} n\
                             body: {body}'
 
-
-                response = post_requests.generate_llm_response(prompt=prompt,
-                                                               request_type='request_classification')
-
-
-                print(response)
-
-                if response['classification'] in types_of_requests:
-
-                    match response['classification']:
-                        case "quote_request":
-                                db_functions.store_request(request_type=response['classification'],
-                                            status='ready_for_quote',
-                                            source='email',
-                                            source_id=thread_id,
-                                            reply_sent=False)
-                                
-                                db_functions.update_request_status(status='processed',
-                                                                thread_id=thread_id,
-                                                                update_type='email_status')
-                        case "other":
-                                db_functions.store_request(request_type=response['classification'],
-                                            status='refine_requirements',
-                                            source='email',
-                                            source_id=thread_id,
-                                            reply_sent=False)
-                                
-                                db_functions.update_request_status(status='processed',
-                                                                thread_id=thread_id,
-                                                                update_type='email_status')
+                try:
+                    response = post_requests.generate_llm_response(prompt=prompt,
+                                                                request_type='generate-structured-quote')
                     
+                    response.setdefault('comments', 'llm failed to structure data')
+                    print(response)
+
+                    if response['success'] == False:
+                        
+                        db_functions.store_request(request_type='other',
+                                    status='refine_requirements',
+                                    source='email',
+                                    source_id=thread_id,
+                                    reply_sent=False,
+                                    comments=response['comments'])
+                        
+                        db_functions.update_request_status(status='processed',
+                                                        thread_id=thread_id,
+                                                        update_type='email_status')
+                    elif response['success'] == True:
+                            
+                            db_functions.store_request(request_type='quote_request',
+                                        status='ready_for_quote',
+                                        source='email',
+                                        source_id=thread_id,
+                                        reply_sent=False,
+                                        comments=response['comments'])
+                            
+                            db_functions.update_request_status(status='processed',
+                                                            thread_id=thread_id,
+                                                            update_type='email_status')
+                            
+                            #TODO store the quote JSON here using a db_function in the quotes tables
+                except KeyError:
+                      continue
+                        
         print('waiting')
         time.sleep(5)
 

@@ -15,7 +15,7 @@ while True:
         
         print('polling')
         
-        requests_ = db_functions.retrieve_request(retrieval_type='replies')
+        requests_ = db_functions.retrieve_request(retrieval_type='replies-refine-other')
         
         if requests_:
 

@@ -38,7 +38,8 @@ def store_request(request_type: str,
                   status: str, 
                   source: str,
                   source_id: str,
-                  reply_sent: bool):
+                  reply_sent: bool,
+                  comments: str):
 
     """
     Inserts a new record into the transactions.requests table.
@@ -61,16 +62,18 @@ def store_request(request_type: str,
     cur = conn.cursor()
 
     sql = """
-    INSERT INTO transactions.requests (request_type, status, source, source_id,reply_sent)
-        VALUES (%s, %s, %s, %s, %s)
+    INSERT INTO transactions.requests (request_type, status, source, source_id,reply_sent, comments)
+        VALUES (%s, %s, %s, %s, %s, %s)
         ON CONFLICT ON CONSTRAINT requests_source_id_key
         DO UPDATE
         SET request_type = EXCLUDED.request_type,
-            status      = EXCLUDED.status;
+            status      = EXCLUDED.status,
+            reply_sent = EXCLUDED.reply_sent,
+            comments = EXCLUDED.comments;
 
     """
 
-    cur.execute(sql, (request_type, status, source, source_id,reply_sent))
+    cur.execute(sql, (request_type, status, source, source_id,reply_sent,comments))
 
     conn.commit()
 
@@ -78,6 +81,7 @@ def store_request(request_type: str,
     conn.close()
 
 def store_email(sender :str,
+                
                 subject: str,
                 body: any,
                 provider: str,
@@ -163,13 +167,13 @@ def retrieve_request(retrieval_type:str):
             from email_history;
             """
 
-        case "replies":
+        case "replies-refine-other":
 
             sql = """
             WITH new_replies AS (
             SELECT source_id
                 FROM transactions.requests
-                WHERE reply_sent = false
+                WHERE reply_sent = false AND status = 'refine_requirements'
                 GROUP BY source_id
                 LIMIT 10
             ),
@@ -222,6 +226,72 @@ def retrieve_request(retrieval_type:str):
 						MAX(latest_participants) AS latest_participants
                 FROM numbered_rows
                 INNER JOIN new_replies ON new_replies.source_id = numbered_rows.thread_id
+                GROUP BY numbered_rows.thread_id
+                
+            )
+            select *
+            from email_history;
+            """
+
+        case "ready-for-quote":
+
+            sql = """
+            WITH quote_requests AS (
+            SELECT source_id
+                FROM transactions.requests
+                WHERE reply_sent = false AND status = 'ready_for_quote'
+                GROUP BY source_id
+                LIMIT 10
+            ),
+
+            numbered_rows AS (
+                SELECT
+                    thread_id,
+                    body,
+                    subject,
+					message_id_rfc822,
+					in_reply_to_rfc822,
+					CASE WHEN email_type = 'outbound' THEN 'Assistant_response' ELSE 'User_response' END AS role,
+                    ROW_NUMBER() OVER (PARTITION BY thread_id ORDER BY timestamp) AS rn,
+                    FIRST_VALUE(subject) 
+				      OVER (
+				        PARTITION BY thread_id 
+				        ORDER BY timestamp 
+				        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+				      ) AS earliest_subject,
+				    LAST_VALUE(message_id_rfc822) 
+				      OVER (
+				        PARTITION BY thread_id 
+				        ORDER BY timestamp 
+				        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+				      ) AS latest_msg,
+				    LAST_VALUE(in_reply_to_rfc822) 
+				      OVER (
+				        PARTITION BY thread_id 
+				        ORDER BY timestamp 
+				        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+				      ) AS latest_reply_to,
+					LAST_VALUE(participants) 
+				      OVER (
+				        PARTITION BY thread_id 
+				        ORDER BY timestamp 
+				        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+				      ) AS latest_participants
+                FROM transactions.emails
+            ),
+
+            email_history as (
+                SELECT numbered_rows.thread_id,
+                       MAX(earliest_subject) AS subject,
+                        jsonb_object_agg(
+                            CONCAT(role, rn),
+                            body
+                        ORDER BY rn ) AS message_history,
+						MAX(latest_msg) AS latest_msg,
+						MAX(latest_reply_to) AS latest_reply_to,
+						MAX(latest_participants) AS latest_participants
+                FROM numbered_rows
+                INNER JOIN quote_requests ON quote_requests.source_id = numbered_rows.thread_id
                 GROUP BY numbered_rows.thread_id
                 
             )

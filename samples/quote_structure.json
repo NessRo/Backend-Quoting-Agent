@@ -1,0 +1,13 @@
+{"products":
+    {"item_1":{"description":"red hat with gold trim",
+                "category":"clothes",
+                "quantity":50},
+    "item_2":{"description":"bicyle trek 2000",
+                "category":"bikes",
+                "quantity":2},
+    "item_3":{"description":"water gun",
+                "category":"toys",
+                "quantity":3}},
+"delivery_location":"456 Oak Ave, Springfield, IL 62704",
+"delivery_date":"January 10, 2024",
+"success":true}
